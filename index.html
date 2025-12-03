@@ -1,11 +1,514 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>沟帮子熏鸡 | 溯源档案</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Manrope:wght@500;600;700&display=swap");
+
+    :root {
+      --bg-1: #0b1021;
+      --bg-2: #172136;
+      --card: rgba(255, 255, 255, 0.06);
+      --stroke: rgba(255, 255, 255, 0.12);
+      --accent: #f5c266;
+      --accent-2: #ff8450;
+      --text: #f5f5f7;
+      --muted: #c8d2e0;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Manrope", "Noto Serif SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 20% 20%, rgba(255, 132, 80, 0.12), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(245, 194, 102, 0.16), transparent 30%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto 40px;
+      background: rgba(10, 14, 30, 0.6);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto 50%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(255, 132, 80, 0.2), transparent 45%);
+      transform: translateX(-50%);
+      filter: blur(40px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .title-block h1 {
+      font-family: "Noto Serif SC", "Manrope", serif;
+      margin: 0 0 10px;
+      font-size: clamp(26px, 4vw, 34px);
+      letter-spacing: 0.4px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 640px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge.dot::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 999px;
+      display: inline-block;
+      box-shadow: 0 0 0 6px rgba(245, 194, 102, 0.18);
+    }
+
+    .meta {
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      background: var(--card);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .meta-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .meta-item strong {
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    .grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      letter-spacing: 0.3px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h3::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: inline-block;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(245, 194, 102, 0.06), rgba(255, 132, 80, 0.12));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .step:hover::after {
+      opacity: 1;
+    }
+
+    .step small {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .step strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .table th,
+    .table td {
+      border-bottom: 1px solid var(--stroke);
+      padding: 10px 6px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .table th {
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(245, 194, 102, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(245, 194, 102, 0.4);
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    .qr-box {
+      border: 1px dashed var(--stroke);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.5;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .product-img {
+      width: 230px;
+      height: 230px;
+      margin: 8px auto;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      overflow: hidden;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 18px;
+      margin-top: 10px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(var(--accent), rgba(245, 194, 102, 0.1));
+      opacity: 0.6;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 12px;
+      padding-left: 14px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 6px rgba(245, 194, 102, 0.16);
+    }
+
+    .timeline-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .timeline-item small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+  </style>
 </head>
 <body>
-    <h1>hello word!</h1>
+  <div class="shell">
+    <header>
+      <div class="title-block">
+        <h1>沟帮子熏鸡 · 溯源档案</h1>
+        <p class="subtitle">
+          追溯批次、原料养殖、熏制工艺、质检与物流节点一目了然，确保每一只沟帮子熏鸡都来源可查、责任可循。
+        </p>
+        <div class="badges">
+          <span class="badge dot">可视化链路</span>
+          <span class="badge">批次编码：GBZ-2025-0921</span>
+          <span class="badge">产品标准：LS/T 3210-2019</span>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="meta-item">
+          <span>生产企业</span>
+          <strong>辽宁省葫芦岛市义县沟帮子食品厂</strong>
+        </div>
+        <div class="meta-item">
+          <span>出厂时间</span>
+          <strong>2025-09-21 09:30</strong>
+        </div>
+        <div class="meta-item">
+          <span>产品等级</span>
+          <strong>A 级 | 核心规格 950 g</strong>
+        </div>
+        <div class="meta-item">
+          <span>责任追溯人</span>
+          <strong>王宁（质控部）</strong>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h3>溯源流程</h3>
+        <div class="process">
+          <div class="step">
+            <small>原料养殖</small>
+            <strong>辽西散养鸡场</strong>
+            <p>鸡龄 180 天以上，饲料配比备案，日常检疫合格记录编号 LX-0824。</p>
+          </div>
+          <div class="step">
+            <small>原料验收</small>
+            <strong>到厂初检</strong>
+            <p>体表、体温、抽检菌落总数、药残检测合规，入库温度 0-4 ℃。</p>
+          </div>
+          <div class="step">
+            <small>盐卤腌制</small>
+            <strong>72 小时静置</strong>
+            <p>古法秘卤，恒温 2-4 ℃；腌制桶号 YZ-14，批次盐水折光率 6.5 °Bx。</p>
+          </div>
+          <div class="step">
+            <small>烟熏烘焙</small>
+            <strong>果木烟熏</strong>
+            <p>果木温控 75 ℃，时长 90 分钟；表皮色泽 L* 34.8，风味曲线在线留存。</p>
+          </div>
+          <div class="step">
+            <small>冷却分装</small>
+            <strong>锁鲜真空</strong>
+            <p>速冷至 4 ℃，真空封装 -0.095 MPa；赋码标签含批次、厂商、生产日期。</p>
+          </div>
+          <div class="step">
+            <small>出厂物流</small>
+            <strong>冷链追踪</strong>
+            <p>冷链车号 辽H-25698；全程温度监测 0-4 ℃；到仓时间自动回传。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>批次与检验</h3>
+        <div class="two-col">
+          <div>
+            <div class="pill">当前批次：GBZ-2025-0921</div>
+            <table class="table">
+              <tr>
+                <th>字段</th>
+                <th>记录</th>
+              </tr>
+              <tr>
+                <td>生产线</td>
+                <td>三号线 · 烟熏炉 S-03</td>
+              </tr>
+              <tr>
+                <td>抽检结果</td>
+                <td>菌落总数、沙门氏菌、金黄色葡萄球菌均合格</td>
+              </tr>
+              <tr>
+                <td>包装形态</td>
+                <td>真空袋 + 充氮，外箱 8 只/箱</td>
+              </tr>
+              <tr>
+                <td>储存条件</td>
+                <td>0-4 ℃ 冷藏，开袋即食</td>
+              </tr>
+            </table>
+          </div>
+          <div>
+            <div class="qr-box">
+              <div class="product-img">
+                <img src="./沟帮子熏鸡.png" alt="沟帮子熏鸡">
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>2025-09-20 18:30</strong>
+            <small>腌制完成，复检盐度与菌落总数；入烟熏前温度 3 ℃</small>
+          </div>
+          <div class="timeline-item">
+            <strong>2025-09-21 07:00</strong>
+            <small>烟熏完成，色泽/含水率达标；冷却 30 分钟后真空封装</small>
+          </div>
+          <div class="timeline-item">
+            <strong>2025-09-21 09:30</strong>
+            <small>质检签章，生成批次码；冷链车出厂，实时温度监测启动</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 18px;">
+      <h3>质量说明</h3>
+      <table class="table">
+        <tr>
+          <th>项目</th>
+          <th>限量/标准</th>
+          <th>检测值</th>
+          <th>结论</th>
+        </tr>
+        <tr>
+          <td>菌落总数</td>
+          <td>≤ 3.0×10<sup>5</sup> CFU/g</td>
+          <td>1.4×10<sup>4</sup> CFU/g</td>
+          <td>合格</td>
+        </tr>
+        <tr>
+          <td>沙门氏菌</td>
+          <td>不得检出</td>
+          <td>未检出</td>
+          <td>合格</td>
+        </tr>
+        <tr>
+          <td>金黄色葡萄球菌</td>
+          <td>≤ 1.0×10<sup>2</sup> CFU/g</td>
+          <td>未检出</td>
+          <td>合格</td>
+        </tr>
+        <tr>
+          <td>铅 (Pb)</td>
+          <td>≤ 0.5 mg/kg</td>
+          <td>0.08 mg/kg</td>
+          <td>合格</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
